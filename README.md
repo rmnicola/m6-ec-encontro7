@@ -12,7 +12,6 @@
 
 ## Conteúdo <!-- omit in toc -->
 - [Objetivos do encontro](#objetivos-do-encontro)
-- [Navigation2](#navigation2)
 - [Setup do Turtlebot3](#setup-do-turtlebot3)
   - [Instalando o sistema operacional no raspberry pi](#instalando-o-sistema-operacional-no-raspberry-pi)
   - [Conectando-se ao raspberry pi](#conectando-se-ao-raspberry-pi)
@@ -25,7 +24,6 @@
     - [Por ssh](#por-ssh)
     - [Por rede](#por-rede)
 
-## Navigation2
 ## Setup do Turtlebot3
 
 ### Instalando o sistema operacional no raspberry pi
@@ -111,7 +109,7 @@ sudo apt-get --with-new-pkgs upgrade dpkg
 
 Você vai precisar reiniciar o raspberry antes de continuar.
 
-Siga o tutorial disponível [aqui](https://github.com/rmnicola/m6-ec-encontro1)
+Siga o tutorial disponível [aqui](https://github.com/rmnicola/m6-ec-encontro1#instalando-o-ros2-humble)
 
 ### Instalando os pacotes do Turtlebot3
 
@@ -159,10 +157,7 @@ Também precisamos especificar o modelo do LIDAR em uma variável de ambiente. R
 echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc
 ```
 
-Ainda mexendo no `bashrc`, vamos criar uma variável de ambiente para garantir que o computador remoto consiga utilizar o ROS para se comunicar diretamente com a raspberry e o Turtlebot:
-
 ```bash
-echo 'export ROS_DOMAIN_ID=30 #TURTLEBOT3' >> ~/.bashrc
 ```
 
 Lembre-se que para poder utilizar essas mudanças sem reiniciar o terminal ainda precisa rodar:
@@ -259,6 +254,40 @@ Para comandar o turtlebot, primeiro precisamos setar a variável de ambiente que
 echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc && source ~/.bashrc
 ```
 
+Em um terminal, rode o comando para iniciar a operação do pacote do turtlebot3:
+
+```bash
+ros2 launch turtlebot3_bringup robot.launch.py
+```
+
+Em outro terminal, rode o pacote teleop:
+
+```bash
+ros2 run turtlebot3_teleop teleop_keyboard
+```
+
 #### Por ssh
 
+Para comandar o robô por ssh, basta conectar-se utilizando o comando:
+
+```bash
+ssh <usuário>@<hostname>
+```
+
+E, a partir daí, seguir os passos da seção anterior.
+
 #### Por rede
+
+Para comandar o robô por rede, é necessário definir o mesmo `ROS_DOMAIN_ID` para todos os computadores envolvidos. Essa variável de ambiente define quais portas `UDP` o ROS utilizará para sua comunicação em rede. Se os dois computadores se encontram na mesma rede e estão configurados com o mesmo `ROS_DOMAIN_ID`, e comunicação entre os seus nós é automática.
+
+Para setar a variável de ambiente, use:
+
+```bash
+echo 'export ROS_DOMAIN_ID=<Valor-numérico-de-0-a-232> #TURTLEBOT3' >> ~/.bashrc
+```
+
+Lembre-se de dar `source` no `bashrc`:
+
+```bash
+source ~/.bashrc
+```
