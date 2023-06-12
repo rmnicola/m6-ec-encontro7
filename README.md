@@ -157,9 +157,6 @@ Também precisamos especificar o modelo do LIDAR em uma variável de ambiente. R
 echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc
 ```
 
-```bash
-```
-
 Lembre-se que para poder utilizar essas mudanças sem reiniciar o terminal ainda precisa rodar:
 
 ```bash
